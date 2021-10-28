@@ -1,25 +1,42 @@
 import React from 'react';
+import { Carousel } from 'react-bootstrap';
 import banner from "../../../images/banner.jpg"
+import banner1 from "../../../images/banner2.jpg"
+import banner2 from "../../../images/banner3.jpg"
 import "./banner.css"
 
 const Banner = () => {
     return (
         <div>
-            <div className="row mt-5 ps-5" >
-                <div className="col-lg-5 d-flex align-items-center ps-5">
-                    <h1 className="primary-color fw-bolder ">Committed to
-                        <br />
-                        <span className="secondary-color"> trusted health care</span>
-                        <span className="text-muted fs-6">Caring for the community's most precious resource</span>
-                    </h1>
-                </div>
-                <div className="col-lg-7 image ">
-                    <img className="img-fluid" src={banner} alt="" />
-                </div>
-            </div>
+            {/*.................Banner carousel section.......... */}
+            <Carousel>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={banner}
+                        alt="First slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={banner1}
+                        alt="Second slide"
+                    />
 
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={banner2}
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+            </Carousel>
 
-            <section className="mt-5 container mb-5" >
+            {/*.................... introduction section....................*/}
+
+            <section className="mt-5 pt-lg-5 container mb-5" >
                 <h6 className="secondary-color mb-3">INTRODUCING</h6>
                 <div className="row">
                     <div className="col-lg-6 ">

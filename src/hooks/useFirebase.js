@@ -6,6 +6,7 @@ initializeAuthentication();
 
 const useFirebase = () => {
     const [user, setUser] = useState({})
+    const [error, setError] = useState("")
     console.log("useFire", user)
     const auth = getAuth();
 
@@ -44,7 +45,12 @@ const useFirebase = () => {
                 const user = result.user
                 setUserName(name)
                 setUser(user)
+                setError("")
             })
+            .catch((error) => {
+                setError(error.message)
+            })
+
     }
 
     // Login with email and password......................
@@ -53,6 +59,10 @@ const useFirebase = () => {
             .then((result) => {
                 const user = result.user
                 setUser(user)
+                setError("")
+            })
+            .catch((error) => {
+                setError(error.message)
             })
     }
     const setUserName = (name) => {
@@ -65,6 +75,7 @@ const useFirebase = () => {
 
     return {
         user,
+        error,
         signWithGoogle,
         createUserWithEmail,
         loginWithEmail,

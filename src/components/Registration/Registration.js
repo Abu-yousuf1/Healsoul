@@ -5,16 +5,18 @@ import Header from '../Home/Header/Header';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import googleIcon from '../../images/google2.png'
+import "./Registration.css"
 
 const Registration = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
+    const [err, setError] = useState("")
 
     console.log("email", email, "pass", password)
 
-    const { createUserWithEmail } = useAuth();
+    const { createUserWithEmail, error } = useAuth();
+    // setError(error)
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -42,7 +44,7 @@ const Registration = () => {
     return (
         <div>
             <Header />
-            <div className="w-50 mx-auto my-5">
+            <div className="section-container mx-auto mx-2 my-5">
                 <h2 className="my-5 secondary-color" >Create a membership Account</h2>
                 <Form onSubmit={handleRegister}>
                     <Form.Group className="mb-3" controlId="formBasicText">
@@ -62,7 +64,7 @@ const Registration = () => {
                         <Form.Control type="password" onBlur={handlePassword} placeholder="Password" />
                     </Form.Group>
                     {/* Error..........display..... */}
-                    <p className="text-danger">{error}</p>
+                    <p className="text-danger">{err || error}</p>
                     <Button variant="warning" type="submit">
                         Submit
                     </Button>

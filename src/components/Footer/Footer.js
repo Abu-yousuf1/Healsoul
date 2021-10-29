@@ -1,5 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Footer = () => {
     return (
@@ -13,8 +15,10 @@ const Footer = () => {
 
             <div className="col-lg-2 mt-5">
                 <h5 className="fw-bold">USEFUL LINKS</h5>
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
+                <Nav.Link as={Link} to="/home">Home</Nav.Link>
+                <Nav.Link as={HashLink} to="/home#services">Services</Nav.Link>
+                <Nav.Link as={HashLink} to="/home#intro">Introduction</Nav.Link>
+                <Nav.Link as={Link} to="/about">About</Nav.Link>
             </div>
 
             <div className="col-lg-6  d-flex align-items-center justify-content-center">

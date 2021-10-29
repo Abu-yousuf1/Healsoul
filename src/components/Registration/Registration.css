@@ -1,0 +1,26 @@
+.section-container {
+    width: 50%;
+}
+
+.login-container {
+    width: 25%;
+}
+
+@media screen and (max-width: 688px) {
+    /* For mobile phones: */
+    .section-container {
+        width: 100%;
+    }
+    .login-container {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:689px) and (max-width: 1300px) {
+    .section-container {
+        width: 50%;
+    }
+    .login-container {
+        width: 25%;
+    }
+}

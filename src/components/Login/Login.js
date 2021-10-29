@@ -4,19 +4,24 @@ import Footer from '../Footer/Footer';
 import Header from '../Home/Header/Header';
 import googleIcon from '../../images//google2.png'
 import useAuth from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 const Login = () => {
-    const { signWithGoogle, loginWithEmail } = useAuth();
+    const { signWithGoogle, loginWithEmail, error } = useAuth();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
+    const [err, setError] = useState("")
+
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location.state?.from || "/home"
 
     const handleGoogleSignIn = () => {
         signWithGoogle()
             .then((result) => {
+                history.push(redirect_uri)
             })
     }
 
@@ -55,7 +60,7 @@ const Login = () => {
 
 
 
-            <div className="w-25 mx-auto my-5">
+            <div className="login-container mx-2 mx-auto my-5">
                 <Form onSubmit={handleLoginWithEmail}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -70,7 +75,7 @@ const Login = () => {
                         <Form.Control type="password" onBlur={handlePassword} placeholder="Password" />
                     </Form.Group>
                     {/* Error..........display..... */}
-                    <p className="text-danger">{error}</p>
+                    <p className="text-danger">{error || err}</p>
                     <Button variant="warning" type="submit">
                         Submit
                     </Button>

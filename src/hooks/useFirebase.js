@@ -7,7 +7,7 @@ initializeAuthentication();
 const useFirebase = () => {
     const [user, setUser] = useState({})
     const [error, setError] = useState("")
-    console.log("useFire", user)
+
     const auth = getAuth();
 
     // Sign-in with Google section.....................

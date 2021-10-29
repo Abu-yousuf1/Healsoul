@@ -7,7 +7,7 @@ import "./Header.css"
 
 const Header = () => {
     const { user, logout } = useAuth();
-    console.log("header", user, user.email);
+
     return (
         <div>
             <Navbar className="primary-bg-color" expand="lg" variant="dark">

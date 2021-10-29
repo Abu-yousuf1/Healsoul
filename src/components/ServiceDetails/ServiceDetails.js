@@ -14,7 +14,6 @@ const ServiceDetails = () => {
             .then(data => { setItems(data) })
     }, [])
 
-    console.log(items);
     const filteringItems = items.filter(item => item.id == serviceId)
 
     const service = (filteringItems[0]);

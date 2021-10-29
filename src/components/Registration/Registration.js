@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Home/Header/Header';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import googleIcon from '../../images/google2.png'
 import "./Registration.css"
@@ -13,10 +13,18 @@ const Registration = () => {
     const [password, setPassword] = useState("")
     const [err, setError] = useState("")
 
-    console.log("email", email, "pass", password)
+    const { createUserWithEmail, signWithGoogle, error } = useAuth();
 
-    const { createUserWithEmail, error } = useAuth();
-    // setError(error)
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location.state?.from || "/home"
+
+    const handleGoogleSignUp = () => {
+        signWithGoogle()
+            .then((result) => {
+                history.push(redirect_uri)
+            })
+    }
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -29,6 +37,7 @@ const Registration = () => {
         }
         else {
             createUserWithEmail(email, password, name);
+            history.push(redirect_uri)
             setError('')
         }
     }
@@ -74,7 +83,7 @@ const Registration = () => {
                 <div className="d-flex justify-content-center my-5 mt-5">
                     <div >
                         <img className="d-inline img-fluid" src={googleIcon} alt="" />
-                        <h5 className="d-inline">Sign up with Google</h5>
+                        <h5 className="d-inline" onClick={handleGoogleSignUp}>Sign up with Google</h5>
                     </div>
                 </div>
                 <p className="mt-4 text-center">Already have an Account?<Link to="/login"> Sign in</Link> </p>

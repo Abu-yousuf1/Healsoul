@@ -1,26 +1,22 @@
-import React from 'react';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import Footer from '../Footer/Footer';
 import Header from '../Home/Header/Header';
-import googleIcon from '../../images//google2.png'
-import useAuth from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
+import googleIcon from '../../images/google2.png'
 
-const Login = () => {
-    const { signWithGoogle, loginWithEmail } = useAuth();
-
+const Registration = () => {
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
 
-    const handleGoogleSignIn = () => {
-        signWithGoogle()
-            .then((result) => {
-            })
-    }
+    console.log("email", email, "pass", password)
 
-    const handleLoginWithEmail = (e) => {
+    const { createUserWithEmail } = useAuth();
+
+    const handleRegister = (e) => {
         e.preventDefault();
         if (password.length < 6) {
             setError("Password Must be 6 characters long.")
@@ -30,33 +26,29 @@ const Login = () => {
             setError("password should contain at least  tow upper case.")
         }
         else {
-            loginWithEmail(email, password);
+            createUserWithEmail(email, password, name);
             setError('')
         }
     }
-    const handleEmail = (e) => {
+    const handleUserName = e => {
+        setName(e.target.value)
+    }
+    const handleEmail = e => {
         setEmail(e.target.value)
     }
-    const handlePassword = (e) => {
+    const handlePassword = e => {
         setPassword(e.target.value)
     }
-
     return (
         <div>
             <Header />
-            <div className="">
-                <div className="d-flex justify-content-center my-4 mt-5" onClick={handleGoogleSignIn}>
-                    <div >
-                        <img className="d-inline img-fluid" src={googleIcon} alt="" />
-                        <h5 className="d-inline">Sign up with Google</h5>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div className="w-25 mx-auto my-5">
-                <Form onSubmit={handleLoginWithEmail}>
+            <div className="w-50 mx-auto my-5">
+                <h2 className="my-5 secondary-color" >Create a membership Account</h2>
+                <Form onSubmit={handleRegister}>
+                    <Form.Group className="mb-3" controlId="formBasicText">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="text" onBlur={handleUserName} placeholder="User Name" />
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" onBlur={handleEmail} placeholder="Enter email" />
@@ -75,12 +67,19 @@ const Login = () => {
                         Submit
                     </Button>
                 </Form>
-                <p className="mt-5 text-center">Not a member get ? <Link to="/register"> Sign up </Link> </p>
-            </div>
 
+                <h4 className="text-center my-5">-----or sign up with Google-----</h4>
+                <div className="d-flex justify-content-center my-5 mt-5">
+                    <div >
+                        <img className="d-inline img-fluid" src={googleIcon} alt="" />
+                        <h5 className="d-inline">Sign up with Google</h5>
+                    </div>
+                </div>
+                <p className="mt-4 text-center">Already have an Account?<Link to="/login"> Sign in</Link> </p>
+            </div>
             <Footer />
         </div>
     );
 };
 
-export default Login; <h1>this is login </h1>
+export default Registration;

@@ -5,7 +5,6 @@ import Service from './Service';
 const Services = () => {
 
     const [items, setItems] = useState([])
-    console.log(items);
 
     useEffect(() => {
         fetch("./services.json")
